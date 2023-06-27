@@ -856,6 +856,14 @@ export default {
         this.pageConfig.table.isExtend.detailConfig[0].data = responseData.json_config_list
         this.pageConfig.table.isCustomMetricExtend.detailConfig[0].data = responseData.metric_config_list
       })
+      const api = this.$root.apiCenter.getTargetDetail + '/group/' + this.targrtId
+      this.$root.$httpRequestEntrance.httpRequestEntrance('GET', api, '', (responseData) => {
+        this.showManagement = true
+        this.targetDetail = responseData
+        this.pageConfig.table.tableData = responseData.config
+      }, {isNeedloading:false})
+
+      this.getDbDetail(this.targrtId)
     },
     singleAddF (rowData) {
       this.cancelReg()
