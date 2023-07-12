@@ -932,6 +932,15 @@ export default {
       let params = this.$root.$validate.isEmptyReturn_JSON(this.endpointRejectModel.addRow)
       this.$validator.validate().then(result => {
         if (!result) return
+        if (params.name.trim().length > 30) {
+          this.$Message.warning(this.$t('field.instance') + this.$t('m_field_less_30'))
+          return
+        }
+        if (params.process_name.trim().length > 30) {
+          this.$Message.warning(this.$t('processName') + this.$t('m_field_less_30'))
+          return
+        }
+
         if (this.endpointRejectModel.addRow.exporter_type && ['host', 'mysql', 'redis', 'java', 'windows', 'ping', 'telnet', 'http'].includes(this.endpointRejectModel.addRow.exporter_type)) {
           this.$Message.warning('Export port existed!')
           return
